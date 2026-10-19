@@ -58,9 +58,47 @@ function calculateTicketPrice({
   isEvening,
   hasStudentCard,
 }) {
-  // Напишите решение здесь.
-  return undefined;
-}
+  let minAge;
+  let minHeight;
+
+  if (attractionType == "детский") {
+    minAge = 0;
+    minHeight = 80
+  } 
+  else if (attractionType == "семейный") {
+    minAge = 8;
+    minHeight = 120
+  } 
+  else if (attractionType == "экстремальный") {
+    minAge = 16;
+    minHeight = 150
+  }
+  else {
+    return null;
+  }
+  if (age < minAge || height < minHeight) {
+  }
+
+  let price = basePrice;
+
+  if (isWeekend) {
+    price = price + basePrice * 0.2;
+  }
+  if (isEvening) {
+    price = price + basePrice * 0.1
+  }
+  if (isWeekend && isEvening){
+    price = price + basePrice * 0.3
+  }
+
+  if (hasStudentCard) {
+    price = price * 0.85;
+  }
+    if (age < 12){
+      price = price * 0.5
+    }
+    return Math.round(price * 100) / 100;
+  }
 
 // ==================== ТЕСТЫ: НЕ ИЗМЕНЯТЬ ====================
 // Тесты встроены в этот файл, внешние библиотеки не нужны.
@@ -79,7 +117,7 @@ function runTest(input, expected) {
 
     if (Object.is(actual, expected)) {
       passed += 1;
-      console.log(`✅ ${name}`);
+      //console.log(`✅ ${name}`);
     } else {
       failed += 1;
       console.error(`❌ ${name}`);
@@ -91,7 +129,6 @@ function runTest(input, expected) {
     console.error(`   Функция выбросила ошибку: ${String(error)}`);
   }
 }
-
 // Для каждого сочетания возраста и роста проверяем все 8 вариантов флагов.
 // Порядок ожидаемых ответов:
 // [будний день, будний день + студент,
